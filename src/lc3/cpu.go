@@ -4,8 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-
-	utils "./utils"
 )
 
 const (
@@ -321,10 +319,8 @@ func Run(memory [memories]uint16) {
 			switch trapvect {
 			case TRAP_GETC:
 
-				char, err := utils.GetChar()
-				if err != nil {
-					fmt.Printf("Something Went Wrong")
-				}
+				char := read_char()
+
 				cpu.REGS[R_R0] = uint16(char)
 
 			case TRAP_OUT:

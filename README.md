@@ -5,8 +5,8 @@ A LC-3 Virtual Machine implementation in GO
 This is a simple project written to demonstrate LC-3 VM .  
 
 ### About LC3
-* is a fictional VM used to teach graduate students about assembly . 
-* forms basis to understand the working of a Virtual Machine
+* is a fictional VM used to teach graduate students about assembly. 
+* forms basis to understand the working of a Virtual Machine.
 
 
 This VM is originally based on [article](https://justinmeiners.github.io/lc3-vm/index.html) written by [@justinmeiners](https://github.com/justinmeiners) and [@rpendleton](https://github.com/rpendleton)

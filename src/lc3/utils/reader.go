@@ -4,26 +4,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io/ioutil"
-	"os"
-	"os/exec"
 )
-
-func Load(memory *[^uint16(0)]uint16, path string) error {
-	b, err := ioutil.ReadFile(path)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-
-	origin := binary.BigEndian.Uint16(b[:2])
-
-	for i := 2; i < len(b); i += 2 {
-		memory[origin] = binary.BigEndian.Uint16(b[i : i+2])
-		origin++
-	}
-
-	return nil
-}
 
 // Does not work as expected
 func ReadFile(path string) [65535]uint16 {
@@ -53,17 +34,20 @@ func swap16(value uint16) uint16 {
 	return (value << 8) | (value >> 8)
 }
 
-func GetChar() (byte, error) {
-	exec.Command("stty", "-F", "/dev/tty", "cbreak", "min", "1").Run()
-	exec.Command("stty", "-F", "/dev/tty", "-echo").Run()
+// This function was taken from @ziggy42 <a href ="https://github.com/ziggy42">Andrea Pivetta</a> github account
+func Load(memory *[^uint16(0)]uint16, path string) error {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
 
-	b := make([]byte, 1)
-	os.Stdin.Read(b)
-	return b[0], nil
-}
+	origin := binary.BigEndian.Uint16(b[:2])
 
-// IsKeyPressed checks if a key was pressed
-func IsKeyPressed() bool {
-	fi, _ := os.Stdin.Stat()
-	return fi.Size() > 0
+	for i := 2; i < len(b); i += 2 {
+		memory[origin] = binary.BigEndian.Uint16(b[i : i+2])
+		origin++
+	}
+
+	return nil
 }
